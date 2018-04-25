@@ -17,17 +17,29 @@ Where
 <Price> is an integer price of request
 
 Here is an input example:
-T1 B 5 30
+
+T1 B 5 30    
+
 T2 S 5 70
+
 T3 B 1 40
+
 T4 S 2 60
+
 T5 S 3 70
+
 T6 S 20 80
+
 T7 S 1 50
+
 T2 S 5 70
+
 T1 B 1 50
+
 T1 B 3 60
+
 T7 S 2 50
+
 T8 B 10 90
 
 Output is a sequence of resulting trades. One line represents all trades created on one aggressor order execution separated by space.
@@ -42,9 +54,13 @@ where
 Several trades of one trader with the same side and price, created on one aggressor execution, should be reported as one trade with cumulative size.
 
 Here is an output example:
+
 T1+1@50 T7-1@50
+
 T1+2@60 T4-2@60
+
 T1+1@60 T7-1@60
+
 T2-6@70 T5-3@70 T7-1@50 T8+1@50 T8+9@70
 
 Trades of one line are sorted by trader, sign and price.
