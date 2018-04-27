@@ -30,12 +30,40 @@ public:
         
     }
     friend ostream &operator<<(ostream& stream, const Agressor& item);
+    const friend bool operator > (const Agressor &a1, const Agressor &a2);
+   // const friend bool operator == (const Agressor &a1, const Agressor &a2);
     
 };
 
 ostream &operator<<(ostream& stream, const Agressor& item) {
-    stream << item.traderIdentifier << " " << item.side << " " << item.quantity << " " << item.price << endl;
+    string side = "";
+    if(item.side == "B"){
+        side = '+';
+    }else{
+        if(item.side == "S"){
+            side = "-";
+        }
+    }
+
+    stream << item.traderIdentifier << side << item.quantity << "@" << item.price << "\n";
     return stream;
+}
+
+/*const bool operator == (const Agressor &a1, const Agressor &a2){
+    bool isEqual = false;
+    if(a1.traderIdentifier == a2.traderIdentifier){
+        isEqual = true;
+    }
+    return(isEqual);
+}*/
+
+
+const bool operator > (const Agressor &a1, const Agressor &a2){
+    bool isGreater = false;
+    if(a1.price/a1.quantity > a2.price/a2.quantity){
+        isGreater = true;
+    }
+    return(isGreater);
 }
 
 #endif /* Agressor_h */

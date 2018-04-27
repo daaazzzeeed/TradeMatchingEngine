@@ -32,12 +32,14 @@ vector<string> split(const string &s, char delim)
 
 int main(int argc, const char * argv[]) {
     vector<Agressor> v;
-    
     while (true) {
             std::string sText;
             cout << "enter query:" << endl;
             std::getline(std::cin, sText);
-            
+        if(sText == "q"){
+            cout << "Program terminated by user" << endl;
+            break;
+        }else{
             std::vector<std::string> sWords = split(sText, ' ');
             Agressor agr;
             agr.traderIdentifier = sWords[0];
@@ -46,8 +48,13 @@ int main(int argc, const char * argv[]) {
             agr.price = stoi(sWords[3]);
             v.push_back(agr);
             
-            for (vector<Agressor>::const_iterator i = v.begin(); i != v.end(); ++i)
-                cout << *i << ' ';
+          //  for (vector<Agressor>::const_iterator i = v.begin(); i != v.end(); ++i)
+            //    cout << *i << ' ';
+        sort(v.begin(),v.end(),greater<Agressor>());
+        cout << "sorted vector:"<<endl;
+        for (vector<Agressor>::const_iterator i = v.begin(); i != v.end(); ++i)
+            cout << *i << ' ';
+    }
     }
     
     
