@@ -7,10 +7,10 @@
 //
 
 #include <iostream>
-#include <vector>
 #include "Agressor.h"
 #include <sstream>
 using namespace std;
+
 
 vector<string> &split(const string &s, char delim, vector<string> &elems)
 {
@@ -30,8 +30,15 @@ vector<string> split(const string &s, char delim)
     return elems;
 }
 
+bool equal_comp(const Agressor& a1, const Agressor& a2){
+    if((a1.price*a1.quantity == a2.price*a2.quantity) && (a1.traderIdentifier == a2.traderIdentifier) && (a1.side == a2.side)){
+        return true;
+    }
+    return false;
+}
+
 int main(int argc, const char * argv[]) {
-    vector<Agressor> v;
+    Agressor agr;
     while (true) {
             std::string sText;
             cout << "enter query:" << endl;
@@ -41,21 +48,29 @@ int main(int argc, const char * argv[]) {
             break;
         }else{
             std::vector<std::string> sWords = split(sText, ' ');
-            Agressor agr;
             agr.traderIdentifier = sWords[0];
             agr.side = sWords[1];
             agr.quantity = stoi(sWords[2]);
             agr.price = stoi(sWords[3]);
-            v.push_back(agr);
-            
-          //  for (vector<Agressor>::const_iterator i = v.begin(); i != v.end(); ++i)
-            //    cout << *i << ' ';
-        sort(v.begin(),v.end(),greater<Agressor>());
-        cout << "sorted vector:"<<endl;
-        for (vector<Agressor>::const_iterator i = v.begin(); i != v.end(); ++i)
-            cout << *i << ' ';
+            agr.v.push_back(agr);
+       
+            vector<Agressor>::iterator it;
+            sort(agr.v.begin(), agr.v.end(), greater<Agressor>());
+            //unique(agr.v.begin(), agr.v.end(), equal_comp);
+            for (vector<Agressor>::const_iterator i = agr.v.begin(); i != agr.v.end(); ++i)
+                cout << *i << ' ';
+         
     }
     }
+    cout << "here we go..." << endl;
+    vector<Agressor>::iterator it;
+    sort(agr.v.begin(), agr.v.end(), greater<Agressor>());
+    //it = unique(agr.v.begin(),agr.v.end(), equal_comp);
+    //agr.v.resize( distance(agr.v.begin(),it) );
+    agr.v.erase(unique(agr.v.begin(),agr.v.end(), equal_comp), agr.v.end());
+    
+    copy(agr.v.begin(), agr.v.end(), ostream_iterator<Agressor>(cout, "\n"));
+
     
     
     return 0;
